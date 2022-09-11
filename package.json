@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@abraham/reflection": "^0.10.0",
+    "extract-zip": "^2.0.1",
     "tslib": "^2.4.0"
   }
 }
