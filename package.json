@@ -23,7 +23,8 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "format": "prettier \"**/*.ts\" --ignore-path ./.prettierignore --write",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "node --experimental-specifier-resolution=node --no-warnings ./dist/main"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
