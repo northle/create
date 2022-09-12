@@ -1,9 +1,9 @@
 #!/usr/bin/env node --experimental-specifier-resolution=node --no-warnings
-import extractZip from 'extract-zip';
-import download from 'download';
-import { existsSync } from 'node:fs';
-import { copyFile, rename, unlink, rm } from 'node:fs/promises';
 import chalk from 'chalk';
+import download from 'download';
+import extractZip from 'extract-zip';
+import { existsSync } from 'node:fs';
+import { copyFile, rename, rm, unlink } from 'node:fs/promises';
 import { runCommand } from './utils/run-command.function';
 
 process.on('uncaughtException', () => {
@@ -19,9 +19,10 @@ const logInfo = (data: string) => {
   clearLine();
 
   console.log(`${chalk.bold.green(data)}`);
-}
+};
 
-const repositoryUrl = 'https://github.com/northerjs/norther/archive/refs/heads/main.zip';
+const repositoryUrl =
+  'https://github.com/northerjs/norther/archive/refs/heads/main.zip';
 
 const cwd = process.cwd();
 const zipPath = `${cwd}/norther.zip`;
