@@ -1,10 +1,6 @@
-/coverage
-/examples
 /src
 /node_modules
-/tests
 .editorconfig
 .eslintrc.json
 .prettierignore
 .prettierrc
-vitest.config.ts
