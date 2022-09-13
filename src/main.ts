@@ -91,13 +91,14 @@ try {
   if (!runCommand(`cd ${appName} ${manager.value} install`)) {
     logError('× Packages not installed', true);
 
-    throw `${manager.value ?? 'npm'} package manager or package not found`;
+    throw `Manager ${manager.value ?? 'npm'} or package not found`;
   }
 
   logInfo('√ Packages installed', true);
 
   setTimeout(() => {
     logInfo(`\nProject ${appName} has been created`);
+
     logInfo(
       `Run ${chalk.gray('cd')} ${chalk.white(appName)} ${chalk.gray(
         '&&',
@@ -106,11 +107,13 @@ try {
   }, 900);
 } catch (error) {
   console.error(chalk.bold.redBright('\nInstallation failed.', error));
-  console.log('cwd:', cwd);
+
   const appDirectory = `${cwd}/${appName}`;
 
   if (existsSync(appDirectory)) {
-    rm(appDirectory);
+    await rm(appDirectory, {
+      recursive: true,
+    });
   }
 
   process.exit(1);
