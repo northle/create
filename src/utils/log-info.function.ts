@@ -6,5 +6,11 @@ export const logInfo = (data: string, clear = false) => {
     clearLine();
   }
 
-  console.log(`${data.charAt(0) === '√' ? chalk.green(data.charAt(0)) + chalk.bold.green(data.slice(1)) : chalk.bold.green(data)}`);
+  console.log(
+    `${
+      data.charAt(0) === '√'
+        ? chalk.green(data.charAt(0)) + chalk.bold.green(data.slice(1))
+        : chalk.bold.green(data)
+    }`,
+  );
 };
