@@ -26,6 +26,7 @@ try {
     filename: 'norther.zip',
   });
 
+  logInfo('✓ Files downloaded', true);
   logInfo('Extracting files...');
 
   await extractZip(zipPath, {
@@ -34,6 +35,7 @@ try {
 
   await unlink(zipPath);
 
+  logInfo('✓ Files extracted', true);
   logInfo('Initializing project...');
 
   await rename(`${cwd}/norther-main`, appName);
@@ -42,13 +44,17 @@ try {
     recursive: true,
   });
 
+  logInfo('✓ Project initialized', true);
   logInfo('Copying files...');
 
   await copyFile(`${cwd}/${appName}/.env.example`, `${cwd}/${appName}/.env`);
 
+  logInfo('✓ Files copied', true);
   logInfo('Installing packages...');
 
   runCommand('npm install');
+
+  logInfo('✓ Packages installed', true);
 
   logInfo(`Project ${appName} has been created`);
   logInfo(`Run ${chalk.bold('cd ' + appName + ' && npm start')} to run your app`);
