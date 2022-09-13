@@ -4,22 +4,13 @@ import download from 'download';
 import extractZip from 'extract-zip';
 import { existsSync } from 'node:fs';
 import { copyFile, rename, rm, unlink } from 'node:fs/promises';
+import { clearLine } from './utils/clear-line.function';
+import { logInfo } from './utils/log-info.function';
 import { runCommand } from './utils/run-command.function';
 
 process.on('uncaughtException', () => {
   process.exit(1);
 });
-
-const clearLine = () => {
-  process.stdout.moveCursor(0, -1);
-  process.stdout.clearLine(1);
-};
-
-const logInfo = (data: string) => {
-  clearLine();
-
-  console.log(`${chalk.bold.green(data)}`);
-};
 
 const repositoryUrl =
   'https://github.com/northerjs/norther/archive/refs/heads/main.zip';
@@ -64,8 +55,10 @@ try {
 } catch (error) {
   console.error(chalk.redBright('Installation failed: ', error));
 
-  if (existsSync(`${cwd}/${appName}`)) {
-    rm(`${cwd}/${appName}`);
+  const appDirectory = `${cwd}/${appName}`;
+
+  if (existsSync(appDirectory)) {
+    rm(appDirectory);
   }
 
   process.exit(1);
