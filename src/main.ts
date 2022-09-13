@@ -95,7 +95,7 @@ try {
   if (!runCommand(`${manager.value} install`)) {
     logError('× Packages not installed', true);
 
-    throw `Manager ${manager.value ?? 'npm'} or package not found`;
+    throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
   }
 
   logInfo('√ Packages installed', true);
