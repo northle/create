@@ -52,7 +52,7 @@ Your environment has to meet few requirements:
 To create new Norther project you can use the NPM command:
 
 ```shell
-$ npm init @norther
+$ npm init @norther <project-name>
 ```
 
 ## 🛡️ Security
