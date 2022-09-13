@@ -21,24 +21,24 @@ const cwd = process.cwd();
 const zipPath = `${cwd}/norther.zip`;
 
 const appName =
-  process.argv[2] ??
+  (process.argv[2] ??
   (
     await prompt({
       type: 'text',
       name: 'value',
       message: 'What is the name of your app?',
     })
-  ).value.replaceAll(' ', '-');
+  ).value).replaceAll(' ', '-');
 
 try {
-  logInfo('Downloading files...');
+  logInfo('- Downloading files...');
 
   await download(repositoryUrl, cwd, {
     filename: 'norther.zip',
   });
 
   logInfo('√ Files downloaded', true);
-  logInfo('Extracting files...');
+  logInfo('- Extracting files...');
 
   await extractZip(zipPath, {
     dir: cwd,
@@ -47,7 +47,7 @@ try {
   await unlink(zipPath);
 
   logInfo('√ Files extracted', true);
-  logInfo('Initializing project...');
+  logInfo('- Initializing project...');
 
   await rename(`${cwd}/norther-main`, appName);
 
@@ -56,7 +56,7 @@ try {
   });
 
   logInfo('√ Project initialized', true);
-  logInfo('Configuring...');
+  logInfo('- Configuring...');
 
   const envFile = `${cwd}/${appName}/.env`;
 
@@ -86,9 +86,11 @@ try {
     initial: 0,
   });
 
-  logInfo('Installing packages...');
+  logInfo('- Installing packages...');
 
-  if (!runCommand(`cd ${appName} ${manager.value} install`)) {
+  process.chdir(appName);
+
+  if (!runCommand(`${manager.value} install`)) {
     logError('× Packages not installed', true);
 
     throw `Manager ${manager.value ?? 'npm'} or package not found`;
