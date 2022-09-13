@@ -95,18 +95,28 @@ try {
   if (!runCommand(`${manager.value} install`)) {
     logError('× Packages not installed', true);
 
-    throw `Manager ${manager.value ?? 'npm'} or package not found`;
+    throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
   }
 
   logInfo('√ Packages installed', true);
 
+  const framework = await prompt({
+    type: 'select',
+    name: 'value',
+    message: 'What frontend framework do you want to use?',
+    choices: [
+      { title: 'React', value: 'react' },
+      { title: 'Vue', value: 'vue' },
+      { title: 'I don\'t want to use any of them', value: null },
+    ],
+    initial: 2,
+  });
+
   setTimeout(() => {
     logInfo(`\nProject ${appName} has been created`);
 
-    logInfo(
-      `Run ${chalk.gray('cd')} ${chalk.white(appName)} ${chalk.gray(
-        '&&',
-      )} ${chalk.white('npm start')} to run your app`,
+    logProgress(
+      `Run ${chalk.white('cd ' + appName + ' && npm start')} to run your app`,
     );
   }, 900);
 } catch (error) {
