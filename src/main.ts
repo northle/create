@@ -8,6 +8,7 @@ import { copyFile, readFile, rename, rm, unlink, writeFile } from 'node:fs/promi
 import prompt from 'prompts';
 import { logError } from './utils/log-error.function';
 import { logInfo } from './utils/log-info.function';
+import { logProgress } from './utils/log-progress';
 import { runCommand } from './utils/run-command.function';
 
 process.on('uncaughtException', () => {
@@ -32,14 +33,14 @@ const appName =
   ).value).replaceAll(' ', '-');
 
 try {
-  logInfo('- Downloading files...');
+  logProgress('- Downloading files...');
 
   await download(repositoryUrl, cwd, {
     filename: 'norther.zip',
   });
 
   logInfo('√ Files downloaded', true);
-  logInfo('- Extracting files...');
+  logProgress('- Extracting files...');
 
   await extractZip(zipPath, {
     dir: cwd,
@@ -48,7 +49,7 @@ try {
   await unlink(zipPath);
 
   logInfo('√ Files extracted', true);
-  logInfo('- Initializing project...');
+  logProgress('- Initializing project...');
 
   await rename(`${cwd}/norther-main`, appName);
 
@@ -57,7 +58,7 @@ try {
   });
 
   logInfo('√ Project initialized', true);
-  logInfo('- Configuring...');
+  logProgress('- Configuring...');
 
   const envFile = `${cwd}/${appName}/.env`;
 
@@ -87,7 +88,7 @@ try {
     initial: 0,
   });
 
-  logInfo('- Installing packages...');
+  logProgress('- Installing packages...');
 
   process.chdir(appName);
 
