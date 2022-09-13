@@ -3,9 +3,10 @@ import chalk from 'chalk';
 import download from 'download';
 import extractZip from 'extract-zip';
 import { existsSync } from 'node:fs';
-import { copyFile, rename, rm, unlink } from 'node:fs/promises';
+import { copyFile, readFile, rename, rm, unlink, writeFile } from 'node:fs/promises';
 import { clearLine } from './utils/clear-line.function';
 import { logInfo } from './utils/log-info.function';
+import { randomBytes } from 'node:crypto';
 import { runCommand } from './utils/run-command.function';
 
 process.on('uncaughtException', () => {
@@ -45,19 +46,27 @@ try {
   });
 
   logInfo('✓ Project initialized', true);
-  logInfo('Copying files...');
+  logInfo('Configuring...');
 
-  await copyFile(`${cwd}/${appName}/.env.example`, `${cwd}/${appName}/.env`);
+  const envFile = `${cwd}/${appName}/.env`;
 
-  logInfo('✓ Files copied', true);
+  await copyFile(`${cwd}/${appName}/.env.example`, envFile);
+
+  const envContent = await readFile(envFile, 'utf8');
+
+  await writeFile(envFile, envContent.replace('ENCRYPT_KEY=', `ENCRYPT_KEY=${randomBytes(16).toString('hex')}`));
+
+  logInfo('✓ Configured', true);
   logInfo('Installing packages...');
 
   runCommand('npm install');
 
   logInfo('✓ Packages installed', true);
 
-  logInfo(`Project ${appName} has been created`);
-  logInfo(`Run ${chalk.bold('cd ' + appName + ' && npm start')} to run your app`);
+  setTimeout(() => {
+    logInfo(`\nProject ${appName} has been created`);
+    logInfo(`Run ${chalk.gray('cd')} ${chalk.white(appName)} ${chalk.gray('&&')} ${chalk.white('npm start')} to run your app`);
+  }, 900);
 } catch (error) {
   console.error(chalk.redBright('Installation failed: ', error));
 
