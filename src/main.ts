@@ -27,6 +27,7 @@ const appName =
       type: 'text',
       name: 'value',
       message: 'What is the name of your app?',
+      validate: (value: string) => /^[a-zA-Z0-9 _-]+$/.test(value) ? true : 'App name cannot contain special characters',
     })
   ).value).replaceAll(' ', '-');
 

@@ -1,0 +1,14 @@
+/.idea
+/.vscode
+/coverage
+/dist
+/node_modules
+*.sqlite
+.env
+.env.backup
+.env.production
+npm-debug.log
+package-lock.json
+pnpm-lock.yaml
+yarn-error.log
+yarn.lock
