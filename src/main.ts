@@ -30,20 +30,20 @@ const repositoryUrl =
 const cwd = process.cwd();
 const zipPath = `${cwd}/norther.zip`;
 
-const appName = (
+const appName =
   process.argv[2] ??
   (
     await prompt({
       type: 'text',
       name: 'value',
       message: 'What is the name of your app?',
+      format: (value) => value.replaceAll(' ', '-'),
       validate: (value: string) =>
-        /^[a-zA-Z0-9 _-]+$/.test(value)
+        /^[a-zA-Z0-9$@ _-]+$/.test(value)
           ? true
           : 'App name cannot contain special characters',
     })
-  ).value
-).replaceAll(' ', '-');
+  ).value;
 
 const manager = await prompt({
   type: 'select',
@@ -65,7 +65,7 @@ const framework = await prompt({
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
     { title: 'Svelte', value: 'svelte' },
-    { title: `I don't want to use any of them`, value: null },
+    { title: 'Leave me alone', value: null },
   ],
   initial: 3,
 });
@@ -128,11 +128,15 @@ try {
 
   logInfo('√ Packages installed', true);
 
+  if (framework.value) {
+    await mkdir(`${cwd}/${appName}/client`);
+
+    process.chdir('client');
+  }
+
   switch (framework.value) {
     case 'react': {
       logProgress('- Installing React...');
-
-      await mkdir(`${cwd}/${appName}/client`);
 
       await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
 
@@ -144,8 +148,6 @@ try {
         `${cwd}/${appName}/src/app/views/home.north.html`,
         'react/home',
       );
-
-      process.chdir('client');
 
       if (
         !runCommand(
@@ -167,8 +169,6 @@ try {
     case 'vue': {
       logProgress('- Installing Vue...');
 
-      await mkdir(`${cwd}/${appName}/client`);
-
       await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
 
       await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
@@ -179,8 +179,6 @@ try {
         `${cwd}/${appName}/src/app/views/home.north.html`,
         'vue/home',
       );
-
-      process.chdir('client');
 
       if (
         !runCommand(
@@ -202,20 +200,19 @@ try {
     case 'svelte': {
       logProgress('- Installing Svelte...');
 
-      await mkdir(`${cwd}/${appName}/client`);
-
       await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
 
       await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'svelte/vite');
       await publishStub(`${cwd}/${appName}/client/svelte/main.js`, 'svelte/main');
-      await publishStub(`${cwd}/${appName}/client/svelte/App.svelte`, 'svelte/component');
+      await publishStub(
+        `${cwd}/${appName}/client/svelte/App.svelte`,
+        'svelte/component',
+      );
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.north.html`,
         'svelte/home',
       );
-
-      process.chdir('client');
 
       if (
         !runCommand(
@@ -238,12 +235,14 @@ try {
   setTimeout(() => {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
-        `[run ${chalk.white('cd ' + appName + chalk.gray(' and ') + 'npm start')} to launch your app]`,
+        `[run ${chalk.white(
+          'cd ' + appName + chalk.gray(' and ') + 'npm start',
+        )} to launch your app]`,
       )}`,
     );
-  }, 900);
+  }, 800);
 } catch (error) {
-  logError(`\nInstallation failed. ${error}`);
+  logError(`\nInstallation failed ${chalk.gray(`[${error}]`)}`);
 
   const appDirectory = `${cwd}/${appName}`;
 
