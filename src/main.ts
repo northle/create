@@ -95,6 +95,13 @@ try {
     recursive: true,
   });
 
+  const packagePath = `${cwd}/${appName}/package.json`;
+  const packageData = JSON.parse((await readFile(packagePath)).toString());
+
+  packageData.name = appName;
+
+  await writeFile(packagePath, JSON.stringify(packageData));
+
   logInfo('√ Project initialized', true);
   logProgress('- Configuring...');
 
