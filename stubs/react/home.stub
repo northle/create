@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Norther with React</title>
+
+    <link rel="icon" href="/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto+Mono&display=swap">
+
+    <link rel="stylesheet" href="/styles.css">
+
+    <script type="module">
+      import RefreshRuntime from 'http://localhost:5173/@react-refresh';
+
+      RefreshRuntime.injectIntoGlobalHook(window);
+
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+      window.__vite_plugin_react_preamble_installed__ = true;
+    </script>
+
+    [viteReact]
+  </head>
+
+  <body class="selection:bg-emerald-300 selection:text-gray-800 dark:bg-gray-900">
+    <div id="app"></div>
+  </body>
+</html>

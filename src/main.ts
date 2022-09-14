@@ -9,6 +9,7 @@ import prompt from 'prompts';
 import { logError } from './utils/log-error.function';
 import { logInfo } from './utils/log-info.function';
 import { logProgress } from './utils/log-progress';
+import { publishStub } from './utils/publish-stub.function';
 import { runCommand } from './utils/run-command.function';
 
 process.on('uncaughtException', () => {
@@ -111,6 +112,30 @@ try {
     ],
     initial: 2,
   });
+
+  switch (framework.value) {
+    case 'react': {
+      await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
+
+      publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
+      publishStub(`${cwd}/${appName}/client/package.json`, 'react/package');
+      publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
+      publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
+      publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'react/home');
+
+      process.chdir('client');
+
+      if (!runCommand(`${manager.value} ${manager.value === 'yarn' ? 'add' : 'install'} -D react react-dom vite @vitejs/plugin-react`)) {
+        throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
+      }
+
+      break;
+    }
+
+    case 'vue': {
+      break;
+    }
+  }
 
   setTimeout(() => {
     logInfo(`\nProject ${appName} has been created`);
