@@ -4,7 +4,7 @@ import download from 'download';
 import extractZip from 'extract-zip';
 import { randomBytes } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { copyFile, readFile, rename, rm, unlink, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, rename, rm, unlink, writeFile } from 'node:fs/promises';
 import prompt from 'prompts';
 import { logError } from './utils/log-error.function';
 import { logInfo } from './utils/log-info.function';
@@ -115,19 +115,25 @@ try {
 
   switch (framework.value) {
     case 'react': {
+      logProgress('- Installing React...');
+
+      await mkdir(`${cwd}/${appName}/client`);
+
       await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
 
-      publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
-      publishStub(`${cwd}/${appName}/client/package.json`, 'react/package');
-      publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
-      publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
-      publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'react/home');
+      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
+      await publishStub(`${cwd}/${appName}/client/package.json`, 'react/package');
+      await publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
+      await publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
+      await publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'react/home');
 
       process.chdir('client');
 
       if (!runCommand(`${manager.value} ${manager.value === 'yarn' ? 'add' : 'install'} -D react react-dom vite @vitejs/plugin-react`)) {
         throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
       }
+
+      logInfo('√ React installed', true);
 
       break;
     }
@@ -145,7 +151,7 @@ try {
     );
   }, 900);
 } catch (error) {
-  console.error(chalk.bold.redBright('\nInstallation failed.', error));
+  logError(`\nInstallation failed. ${error}`);
 
   const appDirectory = `${cwd}/${appName}`;
 
