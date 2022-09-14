@@ -65,7 +65,7 @@ const framework = await prompt({
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
     { title: 'Svelte', value: 'svelte' },
-    { title: 'Leave me alone', value: null },
+    { title: 'Leave me alone!', value: null },
   ],
   initial: 3,
 });
@@ -132,6 +132,8 @@ try {
 
   if (framework.value) {
     await mkdir(`${cwd}/${appName}/client`);
+    await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
+    await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
 
     process.chdir('client');
   }
@@ -140,9 +142,6 @@ try {
     case 'react': {
       logProgress('- Installing React...');
 
-      await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
-
-      await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
       await publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
       await publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
@@ -169,9 +168,6 @@ try {
     case 'vue': {
       logProgress('- Installing Vue...');
 
-      await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
-
-      await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'vue/vite');
       await publishStub(`${cwd}/${appName}/client/vue/main.js`, 'vue/main');
       await publishStub(`${cwd}/${appName}/client/vue/App.vue`, 'vue/component');
@@ -198,9 +194,6 @@ try {
     case 'svelte': {
       logProgress('- Installing Svelte...');
 
-      await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
-
-      await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'svelte/vite');
       await publishStub(`${cwd}/${appName}/client/svelte/main.js`, 'svelte/main');
       await publishStub(
@@ -232,7 +225,7 @@ try {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
         `[run ${chalk.white(
-          'cd ' + appName + chalk.gray(' and ') + 'npm start',
+          `cd ${appName} ${chalk.gray('and')} npm start`,
         )} to launch your app]`,
       )}`,
     );
