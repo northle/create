@@ -2,7 +2,7 @@ export const App = () => {
   return (
     <main className="text-gray-800 flex flex-col h-screen items-center justify-center gap-4 dark:text-slate-200">
       <h1 className="flex items-center font-medium text-4xl">
-        <img className="w-20 h-20" src="/logo.png" alt="Logo">
+        <img className="w-20 h-20" src="/logo.png" alt="Logo" />
   
         <div className="ml-6 leading-9">
           <div>Hello Norther and React!</div>
