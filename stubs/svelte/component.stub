@@ -1,0 +1,17 @@
+<main class="text-gray-800 flex flex-col h-screen items-center justify-center gap-4 dark:text-slate-200">
+  <h1 class="flex items-center font-medium text-4xl">
+    <img class="w-20 h-20" src="/logo.png" alt="Logo">
+
+    <div class="ml-6 leading-9">
+      <div>Hello Norther and Vue!</div>
+    </div>
+  </h1>
+
+  <p class="opacity-90 text-lg mt-8">
+    You see a basic rendered view template. You can edit it in <code class="px-2 py-1 text-sm bg-slate-100 dark:bg-gray-700 rounded-md mx-1">src/app/views</code> directory.
+  </p>
+
+  <a class="bg-gradient-to-r from-emerald-500 to-teal-500 select-none shadow-lg shadow-emerald-500/20 text-white hover:opacity-95 rounded-xl px-5 py-3 mt-8" href="https://norther.dev" target="_blank">
+    Documentation
+  </a>
+</main>

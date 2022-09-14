@@ -64,7 +64,8 @@ const framework = await prompt({
   choices: [
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
-    { title: "I don't want to use any of them", value: null },
+    { title: 'Svelte', value: 'svelte' },
+    { title: `I don't want to use any of them`, value: null },
   ],
   initial: 2,
 });
@@ -194,6 +195,41 @@ try {
       }
 
       logInfo('√ Vue installed', true);
+
+      break;
+    }
+
+    case 'svelte': {
+      logProgress('- Installing Svelte...');
+
+      await mkdir(`${cwd}/${appName}/client`);
+
+      await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
+
+      await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
+      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'svelte/vite');
+      await publishStub(`${cwd}/${appName}/client/svelte/main.js`, 'svelte/main');
+      await publishStub(`${cwd}/${appName}/client/svelte/App.svelte`, 'svelte/component');
+      await publishStub(
+        `${cwd}/${appName}/src/app/views/home.north.html`,
+        'svelte/home',
+      );
+
+      process.chdir('client');
+
+      if (
+        !runCommand(
+          `${manager.value} ${
+            manager.value === 'yarn' ? 'add' : 'install'
+          } -D svelte vite @sveltejs/vite-plugin-svelte`,
+        )
+      ) {
+        throw `Manager ${
+          manager.value ?? 'npm'
+        } not installed or package downloading failed`;
+      }
+
+      logInfo('√ Svelte installed', true);
 
       break;
     }
