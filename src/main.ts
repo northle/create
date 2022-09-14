@@ -118,12 +118,14 @@ try {
 
   process.chdir(appName);
 
+  const managerError = `${
+    manager.value ?? 'npm'
+  } not installed or package downloading failed`;
+
   if (!runCommand(`${manager.value} install`, true)) {
     logError('× Packages not installed', true);
 
-    throw `Manager ${
-      manager.value ?? 'npm'
-    } not installed or package downloading failed`;
+    throw managerError;
   }
 
   logInfo('√ Packages installed', true);
@@ -156,9 +158,7 @@ try {
           } -D react react-dom vite @vitejs/plugin-react`,
         )
       ) {
-        throw `Manager ${
-          manager.value ?? 'npm'
-        } not installed or package downloading failed`;
+        throw managerError;
       }
 
       logInfo('√ React installed', true);
@@ -187,9 +187,7 @@ try {
           } -D vue vite @vitejs/plugin-vue`,
         )
       ) {
-        throw `Manager ${
-          manager.value ?? 'npm'
-        } not installed or package downloading failed`;
+        throw managerError;
       }
 
       logInfo('√ Vue installed', true);
@@ -221,9 +219,7 @@ try {
           } -D svelte vite @sveltejs/vite-plugin-svelte`,
         )
       ) {
-        throw `Manager ${
-          manager.value ?? 'npm'
-        } not installed or package downloading failed`;
+        throw managerError;
       }
 
       logInfo('√ Svelte installed', true);
