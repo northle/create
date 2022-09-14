@@ -33,6 +33,30 @@ const appName =
     })
   ).value).replaceAll(' ', '-');
 
+const manager = await prompt({
+  type: 'select',
+  name: 'value',
+  message: 'What package manager do you want to use?',
+  choices: [
+    { title: 'npm', value: 'npm' },
+    { title: 'pnpm', value: 'pnpm' },
+    { title: 'yarn', value: 'yarn' },
+  ],
+  initial: 0,
+});
+
+const framework = await prompt({
+  type: 'select',
+  name: 'value',
+  message: 'What frontend framework do you want to use?',
+  choices: [
+    { title: 'React', value: 'react' },
+    { title: 'Vue', value: 'vue' },
+    { title: 'I don\'t want to use any of them', value: null },
+  ],
+  initial: 2,
+});
+
 try {
   logProgress('- Downloading files...');
 
@@ -77,18 +101,6 @@ try {
 
   logInfo('√ Configured', true);
 
-  const manager = await prompt({
-    type: 'select',
-    name: 'value',
-    message: 'What package manager do you want to use?',
-    choices: [
-      { title: 'npm', value: 'npm' },
-      { title: 'pnpm', value: 'pnpm' },
-      { title: 'yarn', value: 'yarn' },
-    ],
-    initial: 0,
-  });
-
   logProgress('- Installing packages...');
 
   process.chdir(appName);
@@ -100,18 +112,6 @@ try {
   }
 
   logInfo('√ Packages installed', true);
-
-  const framework = await prompt({
-    type: 'select',
-    name: 'value',
-    message: 'What frontend framework do you want to use?',
-    choices: [
-      { title: 'React', value: 'react' },
-      { title: 'Vue', value: 'vue' },
-      { title: 'I don\'t want to use any of them', value: null },
-    ],
-    initial: 2,
-  });
 
   switch (framework.value) {
     case 'react': {
@@ -164,11 +164,7 @@ try {
   }
 
   setTimeout(() => {
-    logInfo(`\nProject ${appName} has been created`);
-
-    logProgress(
-      `Run ${chalk.white('cd ' + appName + ' && npm start')} to run your app`,
-    );
+    logInfo(`\nProject ${appName} has been created ${chalk.gray(`[run ${chalk.white('cd ' + appName + ' && npm start')} to run your app]`)}`);
   }, 900);
 } catch (error) {
   logError(`\nInstallation failed. ${error}`);
