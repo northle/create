@@ -4,7 +4,15 @@ import download from 'download';
 import extractZip from 'extract-zip';
 import { randomBytes } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { copyFile, mkdir, readFile, rename, rm, unlink, writeFile } from 'node:fs/promises';
+import {
+  copyFile,
+  mkdir,
+  readFile,
+  rename,
+  rm,
+  unlink,
+  writeFile,
+} from 'node:fs/promises';
 import prompt from 'prompts';
 import { logError } from './utils/log-error.function';
 import { logInfo } from './utils/log-info.function';
@@ -22,16 +30,20 @@ const repositoryUrl =
 const cwd = process.cwd();
 const zipPath = `${cwd}/norther.zip`;
 
-const appName =
-  (process.argv[2] ??
+const appName = (
+  process.argv[2] ??
   (
     await prompt({
       type: 'text',
       name: 'value',
       message: 'What is the name of your app?',
-      validate: (value: string) => /^[a-zA-Z0-9 _-]+$/.test(value) ? true : 'App name cannot contain special characters',
+      validate: (value: string) =>
+        /^[a-zA-Z0-9 _-]+$/.test(value)
+          ? true
+          : 'App name cannot contain special characters',
     })
-  ).value).replaceAll(' ', '-');
+  ).value
+).replaceAll(' ', '-');
 
 const manager = await prompt({
   type: 'select',
@@ -52,7 +64,7 @@ const framework = await prompt({
   choices: [
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
-    { title: 'I don\'t want to use any of them', value: null },
+    { title: "I don't want to use any of them", value: null },
   ],
   initial: 2,
 });
@@ -108,7 +120,9 @@ try {
   if (!runCommand(`${manager.value} install`)) {
     logError('× Packages not installed', true);
 
-    throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
+    throw `Manager ${
+      manager.value ?? 'npm'
+    } not installed or package downloading failed`;
   }
 
   logInfo('√ Packages installed', true);
@@ -125,12 +139,23 @@ try {
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
       await publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
       await publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
-      await publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'react/home');
+      await publishStub(
+        `${cwd}/${appName}/src/app/views/home.north.html`,
+        'react/home',
+      );
 
       process.chdir('client');
 
-      if (!runCommand(`${manager.value} ${manager.value === 'yarn' ? 'add' : 'install'} -D react react-dom vite @vitejs/plugin-react`)) {
-        throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
+      if (
+        !runCommand(
+          `${manager.value} ${
+            manager.value === 'yarn' ? 'add' : 'install'
+          } -D react react-dom vite @vitejs/plugin-react`,
+        )
+      ) {
+        throw `Manager ${
+          manager.value ?? 'npm'
+        } not installed or package downloading failed`;
       }
 
       logInfo('√ React installed', true);
@@ -149,12 +174,23 @@ try {
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'vue/vite');
       await publishStub(`${cwd}/${appName}/client/vue/main.js`, 'vue/main');
       await publishStub(`${cwd}/${appName}/client/vue/App.vue`, 'vue/component');
-      await publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'vue/home');
+      await publishStub(
+        `${cwd}/${appName}/src/app/views/home.north.html`,
+        'vue/home',
+      );
 
       process.chdir('client');
 
-      if (!runCommand(`${manager.value} ${manager.value === 'yarn' ? 'add' : 'install'} -D vue vite @vitejs/plugin-vue`)) {
-        throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
+      if (
+        !runCommand(
+          `${manager.value} ${
+            manager.value === 'yarn' ? 'add' : 'install'
+          } -D vue vite @vitejs/plugin-vue`,
+        )
+      ) {
+        throw `Manager ${
+          manager.value ?? 'npm'
+        } not installed or package downloading failed`;
       }
 
       logInfo('√ Vue installed', true);
@@ -164,7 +200,11 @@ try {
   }
 
   setTimeout(() => {
-    logInfo(`\nProject ${appName} has been created ${chalk.gray(`[run ${chalk.white('cd ' + appName + ' && npm start')} to run your app]`)}`);
+    logInfo(
+      `\nProject ${appName} has been created ${chalk.gray(
+        `[run ${chalk.white('cd ' + appName + ' && npm start')} to run your app]`,
+      )}`,
+    );
   }, 900);
 } catch (error) {
   logError(`\nInstallation failed. ${error}`);

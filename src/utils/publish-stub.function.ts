@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
-import { makeFile } from './make-file.function';
 import { fileURLToPath } from 'node:url';
+import { makeFile } from './make-file.function';
 
 export const publishStub = async (file: string, stub: string) => {
   try {
