@@ -121,8 +121,8 @@ try {
 
       await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
 
+      await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
-      await publishStub(`${cwd}/${appName}/client/package.json`, 'react/package');
       await publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
       await publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
       await publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'react/home');
@@ -139,6 +139,26 @@ try {
     }
 
     case 'vue': {
+      logProgress('- Installing Vue...');
+
+      await mkdir(`${cwd}/${appName}/client`);
+
+      await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
+
+      await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
+      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'vue/vite');
+      await publishStub(`${cwd}/${appName}/client/vue/main.js`, 'vue/main');
+      await publishStub(`${cwd}/${appName}/client/vue/App.vue`, 'vue/component');
+      await publishStub(`${cwd}/${appName}/src/app/views/home.north.html`, 'vue/home');
+
+      process.chdir('client');
+
+      if (!runCommand(`${manager.value} ${manager.value === 'yarn' ? 'add' : 'install'} -D vue vite @vitejs/plugin-vue`)) {
+        throw `Manager ${manager.value ?? 'npm'} not installed or package downloading failed`;
+      }
+
+      logInfo('√ Vue installed', true);
+
       break;
     }
   }
