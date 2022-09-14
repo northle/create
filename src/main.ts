@@ -117,7 +117,7 @@ try {
 
   process.chdir(appName);
 
-  if (!runCommand(`${manager.value} install`)) {
+  if (!runCommand(`${manager.value} install`, true)) {
     logError('× Packages not installed', true);
 
     throw `Manager ${
@@ -202,7 +202,7 @@ try {
   setTimeout(() => {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
-        `[run ${chalk.white('cd ' + appName + ' && npm start')} to run your app]`,
+        `[run ${chalk.white('cd ' + appName + chalk.gray(' and ') + 'npm start')} to launch your app]`,
       )}`,
     );
   }, 900);
