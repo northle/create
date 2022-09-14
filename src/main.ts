@@ -67,7 +67,7 @@ const framework = await prompt({
     { title: 'Svelte', value: 'svelte' },
     { title: `I don't want to use any of them`, value: null },
   ],
-  initial: 2,
+  initial: 3,
 });
 
 try {
