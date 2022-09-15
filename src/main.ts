@@ -100,7 +100,7 @@ try {
 
   packageData.name = appName;
 
-  await writeFile(packagePath, JSON.stringify(packageData));
+  await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n');
 
   logInfo('√ Project initialized', true);
   logProgress('- Configuring...');
@@ -150,8 +150,8 @@ try {
       logProgress('- Installing React...');
 
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
-      await publishStub(`${cwd}/${appName}/client/react/main.js`, 'react/main');
-      await publishStub(`${cwd}/${appName}/client/react/App.js`, 'react/component');
+      await publishStub(`${cwd}/${appName}/client/react/main.jsx`, 'react/main');
+      await publishStub(`${cwd}/${appName}/client/react/App.jsx`, 'react/component');
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.north.html`,
         'react/home',

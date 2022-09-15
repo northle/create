@@ -6,7 +6,7 @@ export default defineConfig({
   build: {
     manifest: true,
     rollupOptions: {
-      input: './main.js',
+      input: './react/main.jsx',
     },
     outDir: '../public',
   },
