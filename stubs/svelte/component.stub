@@ -3,7 +3,7 @@
     <img class="w-20 h-20" src="/logo.png" alt="Logo">
 
     <div class="ml-6 leading-9">
-      <div>Hello Norther and Vue!</div>
+      <div>Hello Norther and Svelte!</div>
     </div>
   </h1>
 

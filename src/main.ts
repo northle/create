@@ -100,6 +100,10 @@ try {
 
   packageData.name = appName;
 
+  if (framework.value) {
+    packageData.scripts['start:vite'] = 'concurrently -r "cd client && npm run dev" "norther start:dev"';
+  }
+
   await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n');
 
   logInfo('√ Project initialized', true);
@@ -133,6 +137,14 @@ try {
     logError('× Packages not installed', true);
 
     throw managerError;
+  }
+
+  if (framework.value) {
+    if (!runCommand('npm install -D concurrently', true)) {
+      logError('× Packages not installed', true);
+  
+      throw managerError;
+    }
   }
 
   logInfo('√ Packages installed', true);
@@ -232,7 +244,7 @@ try {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
         `[run ${chalk.white(
-          `cd ${appName} ${chalk.gray('and')} npm start`,
+          `cd ${appName} ${chalk.gray('and')} ${framework.value ? 'npm run start:vite' : 'npm start'}`,
         )} to launch your app]`,
       )}`,
     );
