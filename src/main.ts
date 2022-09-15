@@ -101,7 +101,8 @@ try {
   packageData.name = appName;
 
   if (framework.value) {
-    packageData.scripts['start:vite'] = 'concurrently -r "cd client && npm run dev" "norther start:dev"';
+    packageData.scripts['start:vite'] =
+      'concurrently -r "cd client && npm run dev" "norther start:dev"';
   }
 
   await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n');
@@ -142,7 +143,7 @@ try {
   if (framework.value) {
     if (!runCommand('npm install -D concurrently', true)) {
       logError('× Packages not installed', true);
-  
+
       throw managerError;
     }
   }
@@ -176,6 +177,8 @@ try {
           } -D react react-dom vite @vitejs/plugin-react`,
         )
       ) {
+        logError('× React not installed', true);
+
         throw managerError;
       }
 
@@ -202,6 +205,8 @@ try {
           } -D vue vite @vitejs/plugin-vue`,
         )
       ) {
+        logError('× Vue not installed', true);
+
         throw managerError;
       }
 
@@ -231,6 +236,8 @@ try {
           } -D svelte vite @sveltejs/vite-plugin-svelte`,
         )
       ) {
+        logError('× Svelte not installed', true);
+
         throw managerError;
       }
 
@@ -244,7 +251,9 @@ try {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
         `[run ${chalk.white(
-          `cd ${appName} ${chalk.gray('and')} ${framework.value ? 'npm run start:vite' : 'npm start'}`,
+          `cd ${appName} ${chalk.gray('and')} ${
+            framework.value ? 'npm run start:vite' : 'npm start'
+          }`,
         )} to launch your app]`,
       )}`,
     );
