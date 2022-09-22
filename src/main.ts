@@ -1,4 +1,3 @@
-#!/usr/bin/env node --experimental-specifier-resolution=node --no-warnings
 import chalk from 'chalk';
 import download from 'download';
 import extractZip from 'extract-zip';
