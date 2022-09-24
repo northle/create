@@ -161,12 +161,12 @@ try {
     case 'react': {
       logProgress('- Installing React...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'app/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.jsx`, 'app/main');
-      await publishStub(`${cwd}/${appName}/client/app/App.jsx`, 'app/component');
+      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
+      await publishStub(`${cwd}/${appName}/client/app/main.jsx`, 'react/main');
+      await publishStub(`${cwd}/${appName}/client/app/App.jsx`, 'react/component');
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.north.html`,
-        'app/home',
+        'react/home',
       );
 
       if (
@@ -189,12 +189,12 @@ try {
     case 'vue': {
       logProgress('- Installing Vue...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'app/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.js`, 'app/main');
-      await publishStub(`${cwd}/${appName}/client/app/App.vue`, 'app/component');
+      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'vue/vite');
+      await publishStub(`${cwd}/${appName}/client/app/main.js`, 'vue/main');
+      await publishStub(`${cwd}/${appName}/client/app/App.vue`, 'vue/component');
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.north.html`,
-        'app/home',
+        'vue/home',
       );
 
       if (
@@ -217,15 +217,15 @@ try {
     case 'svelte': {
       logProgress('- Installing Svelte...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'app/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.js`, 'app/main');
+      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'svelte/vite');
+      await publishStub(`${cwd}/${appName}/client/app/main.js`, 'svelte/main');
       await publishStub(
         `${cwd}/${appName}/client/app/App.svelte`,
-        'app/component',
+        'svelte/component',
       );
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.north.html`,
-        'app/home',
+        'svelte/home',
       );
 
       if (
