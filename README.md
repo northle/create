@@ -9,8 +9,8 @@
     <a href="https://www.npmjs.com/package/@northle/create" target="_blank"><img src="https://img.shields.io/npm/v/@northle/create.svg?style=flat-square&labelColor=333842&color=8b5cf6" alt="Latest Version"></a>
     <a href="https://www.npmjs.com/package/@northle/core" target="_blank"><img src="https://img.shields.io/npm/dt/@northle/create.svg?style=flat-square&labelColor=333842&color=3b82f6" alt="Downloads"></a>
     <a href="https://www.npmjs.com/package/@northle/core" target="_blank"><img src="https://img.shields.io/npm/dm/@northle/create.svg?style=flat-square&labelColor=333842&color=3b82f6" alt="Month Downloads"></a>
-    <a href="https://github.com/northlejs/northle" target="_blank"><img src="https://img.shields.io/github/stars/northlejs/northle?style=flat-square&labelColor=333842&color=3b82f6" alt="GitHub Stars"></a>
-    <a href="https://github.com/northlejs/northle" target="_blank"><img src="https://img.shields.io/github/issues/northlejs/northle?style=flat-square&labelColor=333842&color=22c55e" alt="GitHub Issues"></a>
+    <a href="https://github.com/northle/project-template" target="_blank"><img src="https://img.shields.io/github/stars/northle/project-template?style=flat-square&labelColor=333842&color=3b82f6" alt="GitHub Stars"></a>
+    <a href="https://github.com/northle/project-template" target="_blank"><img src="https://img.shields.io/github/issues/northle/project-template?style=flat-square&labelColor=333842&color=22c55e" alt="GitHub Issues"></a>
     <a href="https://www.npmjs.com/package/@northle/create" target="_blank"><img src="https://img.shields.io/npm/l/@northle/create.svg?style=flat-square&labelColor=333842&color=22c55e" alt="License"></a>
   </p>
 
@@ -23,7 +23,7 @@
 
 > This repository contains the code of NorthleJS project creator.
 > 
-> If you want to browse Northle project template, visit [github.com/northlejs/northle](https://github.com/northlejs/northle).
+> If you want to browse Northle project template, visit [github.com/northle/project-template](https://github.com/northle/project-template).
 
 <!-- omit in toc -->
 ## 📒 Table of Contents
@@ -57,11 +57,11 @@ $ npm init @northle <project-name>
 
 ## 🛡️ Security
 
-If you discovered any bug or security issue please open new issue / pull request in the [repository](https://github.com/northlejs/create) or email me: dom.rajkowski@gmail.com.
+If you discovered any bug or security issue please open new issue / pull request in the [repository](https://github.com/northle/create) or email me: dom.rajkowski@gmail.com.
 
 ## ❔ Information
 
-GitHub repository: [github.com/northlejs/create](https://github.com/northlejs/create)
+GitHub repository: [github.com/northle/create](https://github.com/northle/create)
 
 Author: Dominik Rajkowski · [dominiq007](https://github.com/dominiq007)
 

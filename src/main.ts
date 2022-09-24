@@ -24,7 +24,7 @@ process.on('uncaughtException', () => {
 });
 
 const repositoryUrl =
-  'https://github.com/northlejs/northle/archive/refs/heads/main.zip';
+  'https://github.com/northle/project-template/archive/refs/heads/main.zip';
 
 const cwd = process.cwd();
 const zipPath = `${cwd}/northle.zip`;

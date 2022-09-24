@@ -5,12 +5,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/northlejs/create.git"
+    "url": "git+https://github.com/northle/create.git"
   },
   "author": "Dominik Rajkowski",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/northlejs/create/issues"
+    "url": "https://github.com/northle/create/issues"
   },
   "engines": {
     "node": ">=18.3.0"
