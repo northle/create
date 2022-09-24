@@ -24,10 +24,10 @@ process.on('uncaughtException', () => {
 });
 
 const repositoryUrl =
-  'https://github.com/northerjs/norther/archive/refs/heads/main.zip';
+  'https://github.com/northlejs/northle/archive/refs/heads/main.zip';
 
 const cwd = process.cwd();
-const zipPath = `${cwd}/norther.zip`;
+const zipPath = `${cwd}/northle.zip`;
 
 const appName =
   process.argv[2] ??
@@ -73,7 +73,7 @@ try {
   logProgress('- Downloading files...');
 
   await download(repositoryUrl, cwd, {
-    filename: 'norther.zip',
+    filename: 'northle.zip',
   });
 
   logInfo('√ Files downloaded', true);
@@ -88,7 +88,7 @@ try {
   logInfo('√ Files extracted', true);
   logProgress('- Initializing project...');
 
-  await rename(`${cwd}/norther-main`, appName);
+  await rename(`${cwd}/northle-main`, appName);
 
   await rm(`${cwd}/${appName}/.github`, {
     recursive: true,
@@ -101,7 +101,7 @@ try {
 
   if (framework.value) {
     packageData.scripts['start:vite'] =
-      'concurrently -r "cd client && npm run dev" "norther start:dev"';
+      'concurrently -r "cd client && npm run dev" "northle start:dev"';
   }
 
   await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n');

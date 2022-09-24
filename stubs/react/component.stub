@@ -5,7 +5,7 @@ export const App = () => {
         <img className="w-20 h-20" src="/logo.png" alt="Logo" />
   
         <div className="ml-6 leading-9">
-          <div>Hello Norther and React!</div>
+          <div>Hello Northle and React!</div>
         </div>
       </h1>
   
@@ -13,7 +13,7 @@ export const App = () => {
         You see a basic React starter page. You can edit it in <code class="px-2 py-1 text-sm bg-slate-100 dark:bg-gray-700 rounded-md mx-1">client/react/App.jsx</code> file.
       </p>
 
-      <a className="bg-gradient-to-r from-emerald-500 to-teal-500 select-none shadow-lg shadow-emerald-500/20 text-white hover:opacity-95 rounded-xl px-5 py-3 mt-8" href="https://norther.dev" target="_blank">
+      <a className="bg-gradient-to-r from-emerald-500 to-teal-500 select-none shadow-lg shadow-emerald-500/20 text-white hover:opacity-95 rounded-xl px-5 py-3 mt-8" href="https://northle.dev" target="_blank">
         Documentation
       </a>
     </main>

@@ -1,16 +1,16 @@
 {
-  "name": "@norther/create",
+  "name": "@northle/create",
   "version": "1.0.0-alpha.1",
-  "description": "NortherJS project creator",
+  "description": "NorthleJS project creator",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/northerjs/create.git"
+    "url": "git+https://github.com/northlejs/create.git"
   },
   "author": "Dominik Rajkowski",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/northerjs/create/issues"
+    "url": "https://github.com/northlejs/create/issues"
   },
   "engines": {
     "node": ">=18.3.0"

@@ -4,7 +4,7 @@
       <img class="w-20 h-20" src="/logo.png" alt="Logo">
 
       <div class="ml-6 leading-9">
-        <div>Hello Norther and Vue!</div>
+        <div>Hello Northle and Vue!</div>
       </div>
     </h1>
 
@@ -12,7 +12,7 @@
       You see a basic Vue starter page. You can edit it in <code class="px-2 py-1 text-sm bg-slate-100 dark:bg-gray-700 rounded-md mx-1">client/vue/App.vue</code> file.
     </p>
 
-    <a class="bg-gradient-to-r from-emerald-500 to-teal-500 select-none shadow-lg shadow-emerald-500/20 text-white hover:opacity-95 rounded-xl px-5 py-3 mt-8" href="https://norther.dev" target="_blank">
+    <a class="bg-gradient-to-r from-emerald-500 to-teal-500 select-none shadow-lg shadow-emerald-500/20 text-white hover:opacity-95 rounded-xl px-5 py-3 mt-8" href="https://northle.dev" target="_blank">
       Documentation
     </a>
   </main>
