@@ -151,7 +151,7 @@ try {
 
   if (framework.value) {
     await mkdir(`${cwd}/${appName}/client`);
-    await unlink(`${cwd}/${appName}/src/app/views/home.north.html`);
+    await unlink(`${cwd}/${appName}/src/app/views/home.html`);
     await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
 
     process.chdir('client');
@@ -165,7 +165,7 @@ try {
       await publishStub(`${cwd}/${appName}/client/app/main.jsx`, 'react/main');
       await publishStub(`${cwd}/${appName}/client/app/App.jsx`, 'react/component');
       await publishStub(
-        `${cwd}/${appName}/src/app/views/home.north.html`,
+        `${cwd}/${appName}/src/app/views/home.html`,
         'react/home',
       );
 
@@ -193,7 +193,7 @@ try {
       await publishStub(`${cwd}/${appName}/client/app/main.js`, 'vue/main');
       await publishStub(`${cwd}/${appName}/client/app/App.vue`, 'vue/component');
       await publishStub(
-        `${cwd}/${appName}/src/app/views/home.north.html`,
+        `${cwd}/${appName}/src/app/views/home.html`,
         'vue/home',
       );
 
@@ -224,7 +224,7 @@ try {
         'svelte/component',
       );
       await publishStub(
-        `${cwd}/${appName}/src/app/views/home.north.html`,
+        `${cwd}/${appName}/src/app/views/home.html`,
         'svelte/home',
       );
 
