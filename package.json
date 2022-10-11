@@ -31,7 +31,7 @@
     "@types/download": "^8.0.1",
     "@types/node": "^18.8.2",
     "@types/prompts": "^2.0.14",
-    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.39.0",
     "eslint": "^8.25.0",
     "prettier": "^2.7.1",
