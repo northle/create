@@ -127,6 +127,10 @@ try {
 
   logProgress('- Installing packages...');
 
+  if (manager.value !== 'npm') {
+    await unlink(`${cwd}/package-lock.json`);
+  }
+
   process.chdir(appName);
 
   const managerError = `${
