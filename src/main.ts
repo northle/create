@@ -137,14 +137,14 @@ try {
     manager.value ?? 'npm'
   } not installed or package downloading failed`;
 
-  if (!runCommand(`${manager.value} install`, true)) {
+  if (!runCommand(`${manager.value} install`, { showOutput: true })) {
     logError('× Packages not installed', true);
 
     throw managerError;
   }
 
   if (framework.value) {
-    if (!runCommand('npm install -D concurrently', true)) {
+    if (!runCommand('npm install -D concurrently', { showOutput: true })) {
       logError('× Packages not installed', true);
 
       throw managerError;
