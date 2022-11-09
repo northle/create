@@ -12,7 +12,7 @@ export const makeFile = async (path: string, content: string) => {
   }
 
   try {
-    await writeFile(path, content);
+    await writeFile(path, content, 'utf8');
 
     return true;
   } catch (error) {

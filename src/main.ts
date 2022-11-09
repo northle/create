@@ -104,7 +104,7 @@ try {
       'concurrently -r "cd client && npm run dev" "northle start:dev"';
   }
 
-  await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n');
+  await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n', 'utf8');
 
   logInfo('√ Project initialized', true);
   logProgress('- Configuring...');
