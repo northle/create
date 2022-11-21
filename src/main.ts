@@ -97,8 +97,6 @@ try {
   const packagePath = `${cwd}/${appName}/package.json`;
   const packageData = JSON.parse((await readFile(packagePath)).toString());
 
-  packageData.name = appName;
-
   if (framework.value) {
     packageData.scripts['start:vite'] =
       'concurrently -r "cd client && npm run dev" "northle start:dev"';
