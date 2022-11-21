@@ -1,7 +1,7 @@
 {
   "name": "@northle/create",
   "version": "1.0.0-alpha.0",
-  "description": "NorthleJS project creator",
+  "description": "Northle JS framework project creator",
   "type": "module",
   "repository": {
     "type": "git",
