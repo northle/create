@@ -1,7 +1,7 @@
 <div align="center">
   <img src=".github/logo-full.png" width="310">
 
-  <h1>Northle JS Project Creator</h1>
+  <h1>Northle.js Project Creator</h1>
 
   <p align="center">Modern and declarative backend development framework for Node.js.</p>
 
