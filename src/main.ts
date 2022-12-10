@@ -27,7 +27,7 @@ process.on('uncaughtException', (e) => {
 });
 
 const cwd = process.cwd();
-const repositoryUrl ='https://github.com/northle/app-template';
+const repositoryUrl = 'https://github.com/northle/app-template';
 const tempZipPath = `${cwd}/northle.zip`;
 
 const args = parseArgs({
@@ -154,7 +154,12 @@ try {
   process.chdir(appName);
 
   if (args.values.git || args.values.github) {
-    if (!runCommand('git init -b main') || !runCommand('git add .' || !runCommand('git commit -m "Create fresh Northle app"'))) {
+    if (
+      !runCommand('git init -b main') ||
+      !runCommand(
+        'git add .' || !runCommand('git commit -m "Create fresh Northle app"'),
+      )
+    ) {
       logError('× Cannot initialize a Git repository', true);
     }
   }
@@ -213,20 +218,28 @@ try {
     case 'react': {
       logProgress('- Installing React...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.${scriptExtension}`, 'react/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.${jsxExtension}`, 'react/main');
-      await publishStub(`${cwd}/${appName}/client/app/App.${jsxExtension}`, 'react/component');
-
       await publishStub(
-        `${cwd}/${appName}/src/app/views/home.html`,
-        'react/home',
+        `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
+        'react/vite',
       );
+      await publishStub(
+        `${cwd}/${appName}/client/app/main.${jsxExtension}`,
+        'react/main',
+      );
+      await publishStub(
+        `${cwd}/${appName}/client/app/App.${jsxExtension}`,
+        'react/component',
+      );
+
+      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, 'react/home');
 
       if (
         !runCommand(
           `${manager.value} ${
             manager.value === 'yarn' ? 'add' : 'install'
-          } -D react react-dom vite @vitejs/plugin-react${useTypescript ? ' @types/react @types/react-dom' : ''}`,
+          } -D react react-dom vite @vitejs/plugin-react${
+            useTypescript ? ' @types/react @types/react-dom' : ''
+          }`,
         )
       ) {
         logError('× React not installed', true);
@@ -242,18 +255,21 @@ try {
     case 'vue': {
       logProgress('- Installing Vue...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.${scriptExtension}`, 'vue/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.${scriptExtension}`, 'vue/main');
+      await publishStub(
+        `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
+        'vue/vite',
+      );
+      await publishStub(
+        `${cwd}/${appName}/client/app/main.${scriptExtension}`,
+        'vue/main',
+      );
 
       await publishStub(
         `${cwd}/${appName}/client/app/App.vue`,
         `vue/component${useTypescript ? '-typescript' : ''}`,
       );
 
-      await publishStub(
-        `${cwd}/${appName}/src/app/views/home.html`,
-        'vue/home',
-      );
+      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, 'vue/home');
 
       if (
         !runCommand(
@@ -275,18 +291,21 @@ try {
     case 'svelte': {
       logProgress('- Installing Svelte...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.${scriptExtension}`, 'svelte/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.${scriptExtension}`, 'svelte/main');
+      await publishStub(
+        `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
+        'svelte/vite',
+      );
+      await publishStub(
+        `${cwd}/${appName}/client/app/main.${scriptExtension}`,
+        'svelte/main',
+      );
 
       await publishStub(
         `${cwd}/${appName}/client/app/App.svelte`,
         'svelte/component',
       );
 
-      await publishStub(
-        `${cwd}/${appName}/src/app/views/home.html`,
-        'svelte/home',
-      );
+      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, 'svelte/home');
 
       if (
         !runCommand(
@@ -307,7 +326,10 @@ try {
   }
 
   if (args.values.github) {
-    if (!runCommand(`git remote add origin ${repositoryUrl}.git`) || !runCommand('git push origin main')) {
+    if (
+      !runCommand(`git remote add origin ${repositoryUrl}.git`) ||
+      !runCommand('git push origin main')
+    ) {
       logError('× Cannot create GitHub repository', true);
     }
   }
