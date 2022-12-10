@@ -12,6 +12,7 @@ import {
   unlink,
   writeFile,
 } from 'node:fs/promises';
+import { parseArgs } from 'node:util';
 import prompt from 'prompts';
 import { logError } from './utils/log-error.function';
 import { logInfo } from './utils/log-info.function';
@@ -19,18 +20,39 @@ import { logProgress } from './utils/log-progress';
 import { publishStub } from './utils/publish-stub.function';
 import { runCommand } from './utils/run-command.function';
 
-process.on('uncaughtException', () => {
+process.on('uncaughtException', (e) => {
+  logError(e.message);
+
   process.exit(1);
 });
 
-const repositoryUrl =
-  'https://github.com/northle/app-template/archive/refs/heads/main.zip';
-
 const cwd = process.cwd();
-const zipPath = `${cwd}/northle.zip`;
+const repositoryUrl ='https://github.com/northle/app-template';
+const tempZipPath = `${cwd}/northle.zip`;
+
+const args = parseArgs({
+  args: process.argv.slice(2),
+  options: {
+    appName: {
+      type: 'string',
+    },
+    git: {
+      type: 'boolean',
+      short: 'g',
+      default: false,
+    },
+    github: {
+      type: 'boolean',
+      short: 'h',
+      default: false,
+    },
+  },
+  allowPositionals: true,
+  strict: false,
+});
 
 const appName =
-  process.argv[2] ??
+  args.positionals[0] ??
   (
     await prompt({
       type: 'text',
@@ -72,18 +94,18 @@ const framework = await prompt({
 try {
   logProgress('- Downloading files...');
 
-  await download(repositoryUrl, cwd, {
+  await download(`${repositoryUrl}/archive/refs/heads/main.zip`, cwd, {
     filename: 'northle.zip',
   });
 
   logInfo('√ Files downloaded', true);
   logProgress('- Extracting files...');
 
-  await extractZip(zipPath, {
+  await extractZip(tempZipPath, {
     dir: cwd,
   });
 
-  await unlink(zipPath);
+  await unlink(tempZipPath);
 
   logInfo('√ Files extracted', true);
   logProgress('- Initializing project...');
@@ -130,6 +152,12 @@ try {
   }
 
   process.chdir(appName);
+
+  if (args.values.git || args.values.github) {
+    if (!runCommand('git init -b main') || !runCommand('git add .' || !runCommand('git commit -m "Create fresh Northle app"'))) {
+      logError('× Cannot initialize a Git repository', true);
+    }
+  }
 
   const managerError = `${
     manager.value ?? 'npm'
@@ -278,6 +306,12 @@ try {
     }
   }
 
+  if (args.values.github) {
+    if (!runCommand(`git remote add origin ${repositoryUrl}.git`) || !runCommand('git push origin main')) {
+      logError('× Cannot create GitHub repository', true);
+    }
+  }
+
   setTimeout(() => {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
@@ -288,7 +322,7 @@ try {
         )} to launch your app]`,
       )}`,
     );
-  }, 800);
+  }, 600);
 } catch (error) {
   logError(`\nInstallation failed ${chalk.gray(`[${error}]`)}`);
 
