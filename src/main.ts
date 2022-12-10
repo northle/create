@@ -87,10 +87,29 @@ const framework = await prompt({
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
     { title: 'Svelte', value: 'svelte' },
-    { title: 'Leave me alone!', value: null },
+    { title: `I don't want any frontend framework`, value: null },
   ],
   initial: 3,
 });
+
+let useTypescript = false;
+
+if (framework.value) {
+  const typescript = await prompt({
+    type: 'select',
+    name: 'value',
+    message: `Do you want to use ${framework.value} with TypeScript?`,
+    choices: [
+      { title: 'Yes', value: true },
+      { title: 'No', value: false },
+    ],
+    initial: 1,
+  });
+
+  if (typescript.value) {
+    useTypescript = true;
+  }
+}
 
 try {
   logProgress('- Downloading files...');
@@ -174,8 +193,6 @@ try {
 
   logInfo('√ Packages installed', true);
 
-  let useTypescript = false;
-
   if (framework.value) {
     await mkdir(`${cwd}/${appName}/client`);
     await unlink(`${cwd}/${appName}/src/app/views/home.html`);
@@ -183,20 +200,7 @@ try {
 
     process.chdir('client');
 
-    const typescript = await prompt({
-      type: 'select',
-      name: 'value',
-      message: `Do you want to use ${framework.value} with TypeScript?`,
-      choices: [
-        { title: 'Yes', value: true },
-        { title: 'No', value: false },
-      ],
-      initial: 1,
-    });
-
-    if (typescript.value) {
-      useTypescript = true;
-
+    if (useTypescript) {
       await publishStub(`${cwd}/${appName}/client/tsconfig.json`, 'tsconfig');
     }
   }
@@ -322,18 +326,21 @@ try {
   process.chdir('..');
 
   if (args.values.git || args.values.github) {
+    logProgress('- Creating a repository...');
+
     if (
       !runCommand('git init -b main') ||
       !runCommand(
         'git add .' || !runCommand('git commit -m "Create fresh Northle app"'),
       )
     ) {
-      logError('× Cannot initialize a Git repository', true);
+      logError('× Cannot initialize Git repository', true);
     }
   }
 
   if (args.values.github) {
     if (
+      !runCommand(`gh repo create ${repositoryUrl} --private --source=. --remote=upstream`) ||
       !runCommand(`git remote add origin ${repositoryUrl}.git`) ||
       !runCommand('git push origin main')
     ) {
