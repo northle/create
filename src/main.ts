@@ -27,7 +27,8 @@ process.on('uncaughtException', (error) => {
 });
 
 const cwd = process.cwd();
-const repositoryUrl = 'https://github.com/northle/app-template';
+const repositoryName = 'app-template';
+const repositoryUrl = `https://github.com/northle/${repositoryName}`;
 const tempZipPath = `${cwd}/northle.zip`;
 
 const args = parseArgs({
@@ -110,7 +111,7 @@ try {
   logInfo('√ Files extracted', true);
   logProgress('- Initializing project...');
 
-  await rename(`${cwd}/northle-main`, appName);
+  await rename(`${cwd}/${repositoryName}-main`, appName);
 
   await rm(`${cwd}/${appName}/.github`, {
     recursive: true,
@@ -153,17 +154,6 @@ try {
 
   process.chdir(appName);
 
-  if (args.values.git || args.values.github) {
-    if (
-      !runCommand('git init -b main') ||
-      !runCommand(
-        'git add .' || !runCommand('git commit -m "Create fresh Northle app"'),
-      )
-    ) {
-      logError('× Cannot initialize a Git repository', true);
-    }
-  }
-
   const managerError = `${
     manager.value ?? 'npm'
   } not installed or package downloading failed`;
@@ -196,7 +186,7 @@ try {
     const typescript = await prompt({
       type: 'select',
       name: 'value',
-      message: 'Do you want to use TypeScript?',
+      message: `Do you want to use ${framework.value} with TypeScript?`,
       choices: [
         { title: 'Yes', value: true },
         { title: 'No', value: false },
@@ -326,6 +316,19 @@ try {
       logInfo('√ Svelte installed', true);
 
       break;
+    }
+  }
+
+  process.chdir('..');
+
+  if (args.values.git || args.values.github) {
+    if (
+      !runCommand('git init -b main') ||
+      !runCommand(
+        'git add .' || !runCommand('git commit -m "Create fresh Northle app"'),
+      )
+    ) {
+      logError('× Cannot initialize a Git repository', true);
     }
   }
 
