@@ -8,14 +8,14 @@
 
     <link rel="icon" href="/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto+Mono&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Roboto+Mono&display=swap">
 
     <link rel="stylesheet" href="/styles.css">
 
     [vite('main.js')]
   </head>
 
-  <body class="selection:bg-emerald-300 selection:text-gray-800 dark:bg-gray-900">
+  <body class="selection:bg-indigo-500 dark:selection:bg-indigo-400 selection:text-white dark:selection:text-gray-800 dark:bg-gray-900">
     <div id="app"></div>
   </body>
 </html>

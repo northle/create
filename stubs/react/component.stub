@@ -1,21 +1,19 @@
-export const App = () => {
-  return (
-    <main className="text-gray-800 flex flex-col h-screen items-center justify-center gap-4 dark:text-slate-200">
-      <h1 className="flex items-center font-medium text-4xl">
-        <img className="w-20 h-20" src="/logo.png" alt="Logo" />
-  
-        <div className="ml-6 leading-9">
-          <div>Hello Northle and React!</div>
-        </div>
-      </h1>
-  
-      <p class="opacity-90 text-lg mt-8">
-        You see a basic React starter page. You can edit it in <code class="px-2 py-1 text-sm bg-slate-100 dark:bg-gray-700 rounded-md mx-1">client/react/App.jsx</code> file.
-      </p>
+import { useState } from 'react';
 
-      <a className="bg-gradient-to-r from-emerald-500 to-teal-500 select-none shadow-lg shadow-emerald-500/20 text-white hover:opacity-95 rounded-xl px-5 py-3 mt-8" href="https://northle.dev" target="_blank">
-        Documentation
-      </a>
+export const App = () => {
+  const [message, setMessage] = useState('Welcome to Northle and React!');
+
+  return (
+    <main className="text-gray-700 flex flex-col h-screen items-center justify-center gap-5 dark:text-slate-200">
+      <img className="w-20 h-20" src="/logo.png" alt="Logo" />
+
+      <h1 className="font-medium text-5xl">{message}</h1>
+
+      <p className="text-lg text-gray-700 dark:text-gray-300">
+        Open <code
+          className="text-indigo-500 dark:text-indigo-400 px-2 py-1 text-sm bg-indigo-50 dark:bg-gray-700 rounded-md mx-1">client/react/App.jsx</code>
+        file to get started
+      </p>
     </main>
   );
 };
