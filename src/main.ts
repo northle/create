@@ -151,21 +151,43 @@ try {
 
   logInfo('√ Packages installed', true);
 
+  let useTypescript = false;
+
   if (framework.value) {
     await mkdir(`${cwd}/${appName}/client`);
     await unlink(`${cwd}/${appName}/src/app/views/home.html`);
     await publishStub(`${cwd}/${appName}/client/package.json`, 'package');
 
     process.chdir('client');
+
+    const typescript = await prompt({
+      type: 'select',
+      name: 'value',
+      message: 'Do you want to use TypeScript?',
+      choices: [
+        { title: 'Yes', value: true },
+        { title: 'No', value: false },
+      ],
+      initial: 1,
+    });
+
+    if (typescript.value) {
+      useTypescript = true;
+
+      await publishStub(`${cwd}/${appName}/client/tsconfig.json`, 'tsconfig');
+    }
   }
+
+  const scriptExtension = useTypescript ? 'ts' : 'js';
+  const jsxExtension = useTypescript ? 'tsx' : 'jsx';
 
   switch (framework.value) {
     case 'react': {
       logProgress('- Installing React...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.jsx`, 'react/main');
-      await publishStub(`${cwd}/${appName}/client/app/App.jsx`, 'react/component');
+      await publishStub(`${cwd}/${appName}/client/vite.config.${scriptExtension}`, 'react/vite');
+      await publishStub(`${cwd}/${appName}/client/app/main.${jsxExtension}`, 'react/main');
+      await publishStub(`${cwd}/${appName}/client/app/App.${jsxExtension}`, 'react/component');
 
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.html`,
@@ -176,7 +198,7 @@ try {
         !runCommand(
           `${manager.value} ${
             manager.value === 'yarn' ? 'add' : 'install'
-          } -D react react-dom vite @vitejs/plugin-react`,
+          } -D react react-dom vite @vitejs/plugin-react${useTypescript ? ' @types/react @types/react-dom' : ''}`,
         )
       ) {
         logError('× React not installed', true);
@@ -192,9 +214,13 @@ try {
     case 'vue': {
       logProgress('- Installing Vue...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'vue/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.js`, 'vue/main');
-      await publishStub(`${cwd}/${appName}/client/app/App.vue`, 'vue/component');
+      await publishStub(`${cwd}/${appName}/client/vite.config.${scriptExtension}`, 'vue/vite');
+      await publishStub(`${cwd}/${appName}/client/app/main.${scriptExtension}`, 'vue/main');
+
+      await publishStub(
+        `${cwd}/${appName}/client/app/App.vue`,
+        `vue/component${useTypescript ? '-typescript' : ''}`,
+      );
 
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.html`,
@@ -221,8 +247,8 @@ try {
     case 'svelte': {
       logProgress('- Installing Svelte...');
 
-      await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'svelte/vite');
-      await publishStub(`${cwd}/${appName}/client/app/main.js`, 'svelte/main');
+      await publishStub(`${cwd}/${appName}/client/vite.config.${scriptExtension}`, 'svelte/vite');
+      await publishStub(`${cwd}/${appName}/client/app/main.${scriptExtension}`, 'svelte/main');
 
       await publishStub(
         `${cwd}/${appName}/client/app/App.svelte`,

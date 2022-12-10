@@ -9,7 +9,7 @@
 
   <p class="text-lg text-gray-700 dark:text-gray-300">
     Open <code
-      class="text-indigo-500 dark:text-indigo-400 px-2 py-1 text-sm bg-indigo-50 dark:bg-gray-700 rounded-md mx-1">client/svelte/App.svelte</code>
+      class="text-indigo-500 dark:text-indigo-400 px-2 py-1 text-sm bg-indigo-50 dark:bg-gray-700 rounded-md mx-1">client/app/App.svelte</code>
     file to get started
   </p>
 </main>
