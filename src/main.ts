@@ -102,7 +102,7 @@ try {
       'concurrently -r "cd client && npm run dev" "northle start:dev"';
   }
 
-  await writeFile(packagePath, JSON.stringify(packageData, null, 2) + '\n', 'utf8');
+  await writeFile(packagePath, `${JSON.stringify(packageData, null, 2)}\n`, 'utf8');
 
   logInfo('√ Project initialized', true);
   logProgress('- Configuring...');
@@ -166,6 +166,7 @@ try {
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'react/vite');
       await publishStub(`${cwd}/${appName}/client/app/main.jsx`, 'react/main');
       await publishStub(`${cwd}/${appName}/client/app/App.jsx`, 'react/component');
+
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.html`,
         'react/home',
@@ -194,6 +195,7 @@ try {
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'vue/vite');
       await publishStub(`${cwd}/${appName}/client/app/main.js`, 'vue/main');
       await publishStub(`${cwd}/${appName}/client/app/App.vue`, 'vue/component');
+
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.html`,
         'vue/home',
@@ -221,10 +223,12 @@ try {
 
       await publishStub(`${cwd}/${appName}/client/vite.config.js`, 'svelte/vite');
       await publishStub(`${cwd}/${appName}/client/app/main.js`, 'svelte/main');
+
       await publishStub(
         `${cwd}/${appName}/client/app/App.svelte`,
         'svelte/component',
       );
+
       await publishStub(
         `${cwd}/${appName}/src/app/views/home.html`,
         'svelte/home',
