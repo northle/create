@@ -20,8 +20,8 @@ import { logProgress } from './utils/log-progress';
 import { publishStub } from './utils/publish-stub.function';
 import { runCommand } from './utils/run-command.function';
 
-process.on('uncaughtException', (e) => {
-  logError(e.message);
+process.on('uncaughtException', (error) => {
+  logError(error.message);
 
   process.exit(1);
 });
@@ -222,10 +222,12 @@ try {
         `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
         'react/vite',
       );
+
       await publishStub(
         `${cwd}/${appName}/client/app/main.${jsxExtension}`,
         'react/main',
       );
+
       await publishStub(
         `${cwd}/${appName}/client/app/App.${jsxExtension}`,
         'react/component',
@@ -259,6 +261,7 @@ try {
         `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
         'vue/vite',
       );
+
       await publishStub(
         `${cwd}/${appName}/client/app/main.${scriptExtension}`,
         'vue/main',
@@ -295,6 +298,7 @@ try {
         `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
         'svelte/vite',
       );
+
       await publishStub(
         `${cwd}/${appName}/client/app/main.${scriptExtension}`,
         'svelte/main',
