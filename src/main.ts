@@ -98,7 +98,10 @@ if (framework.value) {
   const typescript = await prompt({
     type: 'select',
     name: 'value',
-    message: `Do you want to use ${(framework.value[0] as string).toUpperCase() + (framework.value as string).slice(1)} with TypeScript?`,
+    message: `Do you want to use ${
+      (framework.value[0] as string).toUpperCase() +
+      (framework.value as string).slice(1)
+    } with TypeScript?`,
     choices: [
       { title: 'Yes', value: true },
       { title: 'No', value: false },
@@ -227,7 +230,10 @@ try {
         'react/component',
       );
 
-      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, `react/home${useTypescript ? '-typescript' : ''}`);
+      await publishStub(
+        `${cwd}/${appName}/src/app/views/home.html`,
+        `react/home${useTypescript ? '-typescript' : ''}`,
+      );
 
       if (
         !runCommand(
@@ -266,7 +272,10 @@ try {
         `vue/component${useTypescript ? '-typescript' : ''}`,
       );
 
-      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, `vue/home${useTypescript ? '-typescript' : ''}`);
+      await publishStub(
+        `${cwd}/${appName}/src/app/views/home.html`,
+        `vue/home${useTypescript ? '-typescript' : ''}`,
+      );
 
       if (
         !runCommand(
@@ -303,7 +312,10 @@ try {
         'svelte/component',
       );
 
-      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, `svelte/home${useTypescript ? '-typescript' : ''}`);
+      await publishStub(
+        `${cwd}/${appName}/src/app/views/home.html`,
+        `svelte/home${useTypescript ? '-typescript' : ''}`,
+      );
 
       if (
         !runCommand(
@@ -340,7 +352,9 @@ try {
 
   if (args.values.github) {
     if (
-      !runCommand(`gh repo create ${repositoryUrl} --private --source=. --remote=upstream`) ||
+      !runCommand(
+        `gh repo create ${repositoryUrl} --private --source=. --remote=upstream`,
+      ) ||
       !runCommand('git push origin main')
     ) {
       logError('× Cannot create GitHub repository', true);
