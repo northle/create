@@ -87,7 +87,7 @@ const framework = await prompt({
     { title: 'React', value: 'react' },
     { title: 'Vue', value: 'vue' },
     { title: 'Svelte', value: 'svelte' },
-    { title: `I don't want any frontend framework`, value: null },
+    { title: `I don't want to use a frontend framework`, value: null },
   ],
   initial: 3,
 });
@@ -103,8 +103,8 @@ if (framework.value) {
       (framework.value as string).slice(1)
     } with TypeScript?`,
     choices: [
-      { title: 'Yes', value: true },
-      { title: 'No', value: false },
+      { title: 'yes', value: true },
+      { title: 'no', value: false },
     ],
     initial: 1,
   });
@@ -178,9 +178,7 @@ try {
 
   process.chdir(appName);
 
-  const managerError = `${
-    manager.value ?? 'npm'
-  } not installed or package downloading failed`;
+  const managerError = 'Package installing failed';
 
   if (!runCommand(`${manager.value} install`, { showOutput: true })) {
     logError('× Packages not installed', true);
@@ -244,6 +242,7 @@ try {
           } -D react react-dom vite @vitejs/plugin-react${
             useTypescript ? ' @types/react @types/react-dom' : ''
           }`,
+          { showOutput: true },
         )
       ) {
         logError('× React not installed', true);
@@ -284,6 +283,7 @@ try {
           `${manager.value} ${
             manager.value === 'yarn' ? 'add' : 'install'
           } -D vue vite @vitejs/plugin-vue`,
+          { showOutput: true },
         )
       ) {
         logError('× Vue not installed', true);
@@ -324,6 +324,7 @@ try {
           `${manager.value} ${
             manager.value === 'yarn' ? 'add' : 'install'
           } -D svelte vite @sveltejs/vite-plugin-svelte`,
+          { showOutput: true },
         )
       ) {
         logError('× Svelte not installed', true);
@@ -337,7 +338,9 @@ try {
     }
   }
 
-  process.chdir('..');
+  if (framework.value) {
+    process.chdir('..');
+  }
 
   if (args.values.git || args.values.github) {
     logProgress('- Creating a repository...');
