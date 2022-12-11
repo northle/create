@@ -8,9 +8,9 @@
 
     <link rel="icon" href="/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Roboto+Mono&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500&family=Roboto+Mono&display=swap" nonce="{{ nonce() }}">
 
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles.css" nonce="{{ nonce() }}">
 
     [vite('main.js')]
   </head>

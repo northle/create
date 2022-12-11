@@ -98,7 +98,7 @@ if (framework.value) {
   const typescript = await prompt({
     type: 'select',
     name: 'value',
-    message: `Do you want to use ${framework.value} with TypeScript?`,
+    message: `Do you want to use ${(framework.value[0] as string).toUpperCase() + (framework.value as string).slice(1)} with TypeScript?`,
     choices: [
       { title: 'Yes', value: true },
       { title: 'No', value: false },
@@ -140,8 +140,8 @@ try {
   const packageData = JSON.parse((await readFile(packagePath)).toString());
 
   if (framework.value) {
-    packageData.scripts['start:vite'] =
-      'concurrently -r "cd client && npm run dev" "northle start:dev"';
+    packageData.scripts.start =
+      'concurrently -r "cd client && npm run dev" "app start:dev"';
   }
 
   await writeFile(packagePath, `${JSON.stringify(packageData, null, 2)}\n`, 'utf8');
@@ -227,7 +227,7 @@ try {
         'react/component',
       );
 
-      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, 'react/home');
+      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, `react/home${useTypescript ? '-typescript' : ''}`);
 
       if (
         !runCommand(
@@ -266,7 +266,7 @@ try {
         `vue/component${useTypescript ? '-typescript' : ''}`,
       );
 
-      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, 'vue/home');
+      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, `vue/home${useTypescript ? '-typescript' : ''}`);
 
       if (
         !runCommand(
@@ -303,7 +303,7 @@ try {
         'svelte/component',
       );
 
-      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, 'svelte/home');
+      await publishStub(`${cwd}/${appName}/src/app/views/home.html`, `svelte/home${useTypescript ? '-typescript' : ''}`);
 
       if (
         !runCommand(
@@ -341,7 +341,6 @@ try {
   if (args.values.github) {
     if (
       !runCommand(`gh repo create ${repositoryUrl} --private --source=. --remote=upstream`) ||
-      !runCommand(`git remote add origin ${repositoryUrl}.git`) ||
       !runCommand('git push origin main')
     ) {
       logError('× Cannot create GitHub repository', true);
@@ -352,9 +351,7 @@ try {
     logInfo(
       `\nProject ${appName} has been created ${chalk.gray(
         `[run ${chalk.white(
-          `cd ${appName} ${chalk.gray('and')} ${
-            framework.value ? 'npm run start:vite' : 'npm start'
-          }`,
+          `cd ${appName} ${chalk.gray('and')} npm start`,
         )} to launch your app]`,
       )}`,
     );
