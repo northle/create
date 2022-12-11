@@ -347,9 +347,8 @@ try {
 
     if (
       !runCommand('git init -b main') ||
-      !runCommand(
-        'git add .' || !runCommand('git commit -m "Create fresh Northle app"'),
-      )
+      !runCommand('git add .') ||
+      !runCommand('git commit -m "Create fresh Northle app"')
     ) {
       logError('× Cannot initialize Git repository', true);
     }
