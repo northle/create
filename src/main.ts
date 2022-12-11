@@ -143,8 +143,10 @@ try {
   const packageData = JSON.parse((await readFile(packagePath)).toString());
 
   if (framework.value) {
-    packageData.scripts.start =
-      'concurrently -r "cd client && npm run dev" "app start:dev"';
+    const script = 'concurrently -r "cd client && npm run dev" "app start:dev --open"';
+
+    packageData.scripts.start = script;
+    packageData.scripts['start:dev'] = script;
   }
 
   await writeFile(packagePath, `${JSON.stringify(packageData, null, 2)}\n`, 'utf8');
@@ -217,7 +219,7 @@ try {
 
       await publishStub(
         `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
-        'react/vite',
+        `react/vite${useTypescript ? '-typescript' : ''}`,
       );
 
       await publishStub(
@@ -259,7 +261,7 @@ try {
 
       await publishStub(
         `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
-        'vue/vite',
+        `vue/vite${useTypescript ? '-typescript' : ''}`,
       );
 
       await publishStub(
@@ -299,7 +301,7 @@ try {
 
       await publishStub(
         `${cwd}/${appName}/client/vite.config.${scriptExtension}`,
-        'svelte/vite',
+        `svelte/vite${useTypescript ? '-typescript' : ''}`,
       );
 
       await publishStub(
