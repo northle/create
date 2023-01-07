@@ -143,7 +143,8 @@ try {
   const packageData = JSON.parse((await readFile(packagePath)).toString());
 
   if (framework.value) {
-    const script = 'concurrently -r "cd client && npm run dev" "app start:dev --open"';
+    const script =
+      'concurrently -r "cd client && npm run dev" "app start:dev --open"';
 
     packageData.scripts.start = script;
     packageData.scripts['start:dev'] = script;

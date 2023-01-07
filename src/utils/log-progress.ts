@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { clearLine } from './clear-line.function';
 
-export const logProgress = (data: string, clear = false) => {
+export function logProgress(data: string, clear = false) {
   if (clear) {
     clearLine();
   }
@@ -13,4 +13,4 @@ export const logProgress = (data: string, clear = false) => {
         : chalk.bold.gray(data)
     }`,
   );
-};
+}

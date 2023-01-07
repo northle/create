@@ -11,7 +11,7 @@ export const runCommand = (command: string, options?: Options) => {
     });
 
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
